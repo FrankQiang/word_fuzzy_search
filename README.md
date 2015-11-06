@@ -1,5 +1,7 @@
 #### example
 
+    run trie.py
+
     please input number : 3
     
     please input word : babys
