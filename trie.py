@@ -13,7 +13,7 @@ class Trie:
         self.root = Node()
         self.get_words = {}
         self.words = {}
-        self.weight =[]
+        
  
     def insert(self, key):      # key is of type string                                                                                                                
         # key should be a low-case string, this must be checked here!       
@@ -31,9 +31,10 @@ class Trie:
  
     def search(self, key):
         node = self.root
-
+        origin_word = None
+        weight_word = None
         # error percentage
-        if len(key)<=4:
+        if len(key)<=6:
             rate = 0.2
         elif len(key)>=18:
             rate = 0.2
@@ -51,16 +52,27 @@ class Trie:
         else:
             # some error
             self.dfs(key,self.root,num)
+            temp = 0
+            for word,value in self.get_words.items():
+                if value > temp:
+                    temp = value
+                    origin_word = word
             for word in self.get_words:
                 if word in self.words:
-                    self.get_words[word] = self.words[word]
+                    if self.get_words[word] < self.words[word]:
+                        self.get_words[word] = self.words[word]
 
+            temp = 0 
             for word,value in self.get_words.items():
-                self.weight.append(value)
+                if value > temp:
+                    temp = value
+                    weight_word = word
 
-            for word,value in self.get_words.items():
-                if (value==sorted(self.weight)[-1]):
-                    print word
+            if (self.get_words[weight_word] / self.get_words[origin_word]) < 2:
+                print origin_word
+            else:
+                print weight_word
+                
                 
 
     def dfs(self,key,node,num):
@@ -139,7 +151,6 @@ class Trie:
                 self.search(key)
                 # print datetime.now()
                 self.get_words = {}
-                self.weight =[]
                 
 
 
