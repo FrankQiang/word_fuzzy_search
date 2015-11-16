@@ -31,8 +31,6 @@ class Trie:
  
     def search(self, key):
         node = self.root
-        origin_word = None
-        weight_word = None
         # error percentage
         if len(key)<=6:
             rate = 0.2
@@ -52,28 +50,14 @@ class Trie:
         else:
             # some error
             self.dfs(key,self.root,num)
-            temp = 0
-            for word,value in self.get_words.items():
-                if value > temp:
-                    temp = value
-                    origin_word = word
+
             for word in self.get_words:
                 if word in self.words:
                     if self.get_words[word] < self.words[word]:
                         self.get_words[word] = self.words[word]
 
-            temp = 0 
-            for word,value in self.get_words.items():
-                if value > temp:
-                    temp = value
-                    weight_word = word
-
-            if (self.get_words[weight_word] / self.get_words[origin_word]) < 2:
-                print origin_word
-            else:
-                print weight_word
-                
-                
+            # self.get_words= sorted(self.get_words.iteritems(), key=lambda d:d[1], reverse = True)
+            print self.get_words        
 
     def dfs(self,key,node,num):
         keep_num = num
@@ -90,10 +74,9 @@ class Trie:
             i +=1
             # error char
             if num > 0:
-                if char not in node.children:
-                    for error_char in node.children:
-                        self.dfs(key[i:],node.children[error_char],num-1)
-                    num -=1
+                for error_char in node.children:
+                    self.dfs(key[i:],node.children[error_char],num-1)
+                num -=1
             # right char
             if char in node.children:
                 node = node.children[char]
