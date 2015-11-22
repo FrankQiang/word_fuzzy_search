@@ -11,9 +11,11 @@
     please input word : sarch
 
     search
+    march
 
     please input word : plase
 
+    place
     please
 
 
