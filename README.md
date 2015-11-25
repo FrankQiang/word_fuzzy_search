@@ -2,16 +2,16 @@
 
     run trie.py
     
-    please input word : babys
+    please enter word : babys
     
     baby
 
-    please input word : sarch
+    please enter word : sarch
 
     search
     march
 
-    please input word : plase
+    please enter word : plase
 
     place
     please

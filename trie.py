@@ -136,7 +136,7 @@ class Trie:
         self.get_word_weight()
 
         while True:
-            key = raw_input('please input word : ')
+            key = raw_input('please enter word : ')
             key = key.lower()
             if len(key) > 22 or re.search(r'[^a-z]',key):
                 print 'error word!'
