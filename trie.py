@@ -137,6 +137,7 @@ class Trie:
 
         while True:
             key = raw_input('please enter word : ')
+            key = key.strip() # 删除word中开头、结尾处的空格
             key = key.lower()
             if len(key) > 22 or re.search(r'[^a-z]',key):
                 print 'error word!'
