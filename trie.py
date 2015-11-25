@@ -134,9 +134,8 @@ class Trie:
     def main(self):
         self.create_trie()
         self.get_word_weight()
-        n = int(raw_input('please input number : '))
 
-        for x in range(0,n):
+        while True:
             key = raw_input('please input word : ')
             key = key.lower()
             if len(key) > 22 or re.search(r'[^a-z]',key):
