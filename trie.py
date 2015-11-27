@@ -46,12 +46,10 @@ class Trie:
                 if self.get_words[word] < self.words_weight[word]:
                     self.get_words[word] = self.words_weight[word]
 
-        max_weight = 0 # get max_weight word
-        for word,value in self.get_words.iteritems():
-            if max_weight < value:
-                max_weight = value
+        max_weight = max(value for value in self.get_words.values())  
+        # get max_weight word
 
-        for word,value in self.get_words.iteritems(): # get max_weight nearby words
+        for word,value in self.get_words.items(): # get max_weight nearby words
             if (max_weight/value) < 2:
                 best_match_words[word] = value
                 best_word_weight.append(value)
@@ -59,9 +57,9 @@ class Trie:
         best_word_weight = sorted(best_word_weight,reverse = True)
 
         for weight in best_word_weight:
-            for word,value in best_match_words.iteritems():
+            for word,value in best_match_words.items():
                 if weight == value:
-                    print word
+                    print(word)
  
     def search(self, key):
         node = self.root     
@@ -73,7 +71,7 @@ class Trie:
 
         if node.value and (len(node.value) ==len(key)):
             # entire right
-            print node.value
+            print(node.value)
         else:
             # No found on trie 
             self.dfs(key,self.root,num,0)
@@ -112,10 +110,8 @@ class Trie:
                 self.get_words[node.value] = match
 
     def get_word_weight(self):
-        filename = "frequent_words.csv"
-        f = open(filename)
-        lines = f.readlines()
-        f.close()
+        with open("frequent_words.csv",'r') as f:
+            lines = f.readlines()
         for line in lines:
             line = re.sub(r'\n','',line)
             line = line.split(',')
@@ -124,10 +120,8 @@ class Trie:
             self.words_weight[word] = int(weight)
 
     def create_trie(self):
-        filename = "words.txt"
-        f = open(filename)
-        lines = f.readlines()
-        f.close()
+        with open("words.txt",'r') as f:
+            lines = f.readlines()
         for line in lines:
             self.insert(re.sub(r'\n','',line))
 
@@ -140,11 +134,11 @@ class Trie:
             key = key.strip() # 删除word中开头、结尾处的空格
             key = key.lower()
             if len(key) > 22 or re.search(r'[^a-z]',key):
-                print 'error word!'
+                print('error word!')
             else:
-                # print datetime.now()
+                # print(datetime.now())
                 self.search(key)
-                # print datetime.now()
+                # print(datetime.now())
                 self.get_words = {}
                 
 if __name__=='__main__':
